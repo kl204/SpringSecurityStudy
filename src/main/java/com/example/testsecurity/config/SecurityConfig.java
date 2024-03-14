@@ -49,6 +49,10 @@ public class SecurityConfig {
                         .sessionFixation().changeSessionId());
 
 
+        http
+                .logout((auth) -> auth.logoutUrl("/logout")
+                        .logoutSuccessUrl("/"));
+
         return http.build();
     }
 }
