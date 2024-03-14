@@ -34,13 +34,18 @@ public class SecurityConfig {
                         .loginProcessingUrl("/loginProc")
                         .permitAll()
                 );
+
+        // 접근 권한이 없어서 거부될 때 넘어가는 페이지 설정
         http
-                .csrf((auth) -> auth.disable());
+                .exceptionHandling((auth) -> auth
+                        .accessDeniedPage("/login"));
+//        http
+//                .csrf((auth) -> auth.disable());
 
         // 다중 로그인에 대한 설정
         http
                 .sessionManagement((auth) -> auth
-                        .maximumSessions(1)
+                        .maximumSessions(3)
                         .maxSessionsPreventsLogin(true));
 
         //세션 고정 공격 방어
